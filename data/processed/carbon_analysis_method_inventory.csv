@@ -1,0 +1,211 @@
+﻿source_id;dataset_id;carbon_analysis_method;assignment_basis;row_count;evidence_reference;notes
+bdsolos_embrapa;bdsolos_public_carbono_organico;Não informado;metodo_analitico_ausente_na_exportacao_publica;14356;https://www.bdsolos.cnptia.embrapa.br/;
+hybras_sgb;hybras_v1_2020;Não informado;campo_fonte_vazio:OC_OM_Method;5;"data/raw/hybras/v1_2020/HYBRAS_COMPLETE_V1.xlsx; doi:10.2136/vzj2017.05.0095";
+hybras_sgb;hybras_v1_2020;Oxidação úmida - Walkley-Black (1934), espectrofotometria;campo_fonte:OC_OM_Method;34;"data/raw/hybras/v1_2020/HYBRAS_COMPLETE_V1.xlsx; doi:10.2136/vzj2017.05.0095";Walkley&Black (1934) com determinação por espectrofotometria
+hybras_sgb;hybras_v1_2020;Oxidação úmida - Walkley-Black (1934), titulação;campo_fonte:OC_OM_Method;206;"data/raw/hybras/v1_2020/HYBRAS_COMPLETE_V1.xlsx; doi:10.2136/vzj2017.05.0095";Walkley&Black (1934) com determinação por titulação
+hybras_sgb;hybras_v1_2020;Oxidação úmida - Walkley-Black (1934), titulação;campo_fonte:OC_OM_Method;380;"data/raw/hybras/v1_2020/HYBRAS_COMPLETE_V1.xlsx; doi:10.2136/vzj2017.05.0095";"Walkley&Black (1934) com determinação por titulação; Carbono Orgânico x 1.724"
+hybras_sgb;hybras_v1_2020;Oxidação úmida - Walkley-Black modificado/Mebius (1960);campo_fonte:OC_OM_Method;6;"data/raw/hybras/v1_2020/HYBRAS_COMPLETE_V1.xlsx; doi:10.2136/vzj2017.05.0095";Walkley&Black modificado (Mebius, 1960)
+israd_brazil;israd_flat_layer;Combustão seca - LECO Carbon Analyzer;documentacao_do_estudo:Lähteenoja_2009;52;doi:10.1111/j.1365-2486.2009.01920.x;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar / IRMS de fluxo contínuo (CENA);documentacao_do_estudo:Telles_2003;36;doi:10.1029/2002GB001953;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar / IRMS de fluxo contínuo (CENA);propagado_por_grupo_duplicado_inequivoco;2;dup-000911;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar / IRMS de fluxo contínuo (CENA);propagado_por_grupo_duplicado_inequivoco;2;dup-000912;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar / IRMS de fluxo contínuo (CENA);propagado_por_grupo_duplicado_inequivoco;2;dup-000913;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar / IRMS de fluxo contínuo (CENA);propagado_por_grupo_duplicado_inequivoco;2;dup-000914;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar / IRMS de fluxo contínuo (CENA);propagado_por_grupo_duplicado_inequivoco;2;dup-000915;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar / IRMS de fluxo contínuo (CENA);propagado_por_grupo_duplicado_inequivoco;2;dup-000916;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar / IRMS de fluxo contínuo (CENA);propagado_por_grupo_duplicado_inequivoco;2;dup-000917;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar / IRMS de fluxo contínuo (CENA);propagado_por_grupo_duplicado_inequivoco;2;dup-000918;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar / IRMS de fluxo contínuo (CENA);propagado_por_grupo_duplicado_inequivoco;2;dup-000919;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar / IRMS de fluxo contínuo (CENA);propagado_por_grupo_duplicado_inequivoco;2;dup-000920;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar C,H;documentacao_do_estudo:Pessenda_1996;48;doi:10.1017/S0033822200017574;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar Elementar Vario EL;documentacao_do_estudo:Dümig_2008;81;doi:10.1016/j.geoderma.2007.06.005;
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar Europa ANCA-SL / IRMS Europa 20-20;"documentacao_do_estudo:Nagy_2017;amostras_2013";175;doi:10.1002/2017JG004269;O metodo foi comprovado apenas para as amostras coletadas em 2013.
+israd_brazil;israd_flat_layer;Combustão seca - analisador elementar NA 1108 / IRMS Finnigan MAT delta S;documentacao_do_estudo:Scheibe_2022;82;doi:10.5194/bg-20-827-2023;
+israd_brazil;israd_flat_layer;Combustão seca a 950 °C - analisador elementar TruSpec CHN LECO;documentacao_do_estudo:Jungkunst_2023;39;doi:10.1038/s41598-023-30801-x;
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Camargo_1999;4;doi:10.1046/j.1365-2486.1999.00259.x;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Desjardins_1994;8;doi:10.1016/0016-7061(94)90013-2;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Guillet_1988;31;doi:10.1016/0031-0182(88)90111-3;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:James_2019;32;doi:10.1016/j.geoderma.2019.03.019;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Kuhnen_2019;12;doi:10.5281/zenodo.2645510;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Martinez_2023;24;doi:10.1111/ejss.13415;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:McClaran_2000;5;doi:10.2307/3236777;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Montes_2023;108;doi:10.1016/j.catena.2022.106837;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Nagy_2017;30;doi:10.1002/2017JG004269;O esquema flat layer nao inclui o metodo analitico. A tecnica localizada so foi comprovada para amostras de 2013.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Perez_2006;73;"doi:10.1890/1051-0761(2006)016[2153:NONADN]2.0.CO;2";O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Pessenda_1997;55;doi:10.1017/S0033822200018981;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Sanaiotti_2002;30;doi:10.1111/j.1744-7429.2002.tb00237.x;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Sierra_2013;21;doi:10.5194/bg-10-3455-2013;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Telles_2011;4;doi:10.3334/ORNLDAAC/1025;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Trumbore_1993;9;doi:10.1029/93GB00468;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:Trumbore_2006;73;https://github.com/International-Soil-Radiocarbon-Database/ISRaD;O esquema flat layer nao inclui o metodo analitico.
+israd_brazil;israd_flat_layer;Não informado;metodo_ausente_no_israd_flat_layer:de_Freitas_2001;6;doi:10.1006/qres.2000.2192;O esquema flat layer nao inclui o metodo analitico.
+mapbiomas_soc;doi:10.60502/SoilData/IUZOAK;Não informado;metodo_ausente_no_arquivo_c3;27421;doi:10.60502/SoilData/IUZOAK;
+mapbiomas_soc;doi:10.60502/SoilData/IUZOAK;Não se aplica - ponto pseudoamostral;identificador_de_pseudoamostra;3000;doi:10.60502/SoilData/IUZOAK;"Linha sintetica usada no conjunto de modelagem; nao e ensaio laboratorial."
+mapbiomas_soc;doi:10.60502/SoilData/IUZOAK;Oxidação úmida - Yeomans-Bremner (1988) / Mebius em bloco;linhagem_mapbiomas:ctb0003->RCYUYZ;626;"doi:10.60502/SoilData/RCYUYZ; doi:10.60502/SoilData/IUZOAK";
+soildata_dataset;doi:10.60502/SoilData/FBSGZZ;Oxidação úmida - Walkley-Black (1934);documentacao_do_estudo:FBSGZZ;285;"doi:10.60502/SoilData/FBSGZZ; doi:10.5935/1984-2295.20160112";
+soildata_dataset;doi:10.60502/SoilData/NIIMSF;Oxidação úmida com dicromato - IAC (2001), leitura colorimétrica (proxy de matéria orgânica);metadado_do_dataset:NIIMSF;39;"doi:10.60502/SoilData/NIIMSF; IAC (2001), cap. 9";A fonte reporta materia organica, nao carbono medido diretamente.
+soildata_dataset;doi:10.60502/SoilData/NSZ9WW;Não informado;documentacao_insuficiente:NSZ9WW;54;doi:10.60502/SoilData/NSZ9WW;
+soildata_dataset;doi:10.60502/SoilData/OXT1PI;Combustão seca - analisador elementar C/N Thermo Flash;metadado_do_dataset:OXT1PI;590;"doi:10.60502/SoilData/OXT1PI; arquivo de metodo 295";
+soildata_dataset;doi:10.60502/SoilData/R91CFI;Oxidação úmida - Yeomans-Bremner (1988);metadado_e_publicacao:R91CFI;100;"doi:10.60502/SoilData/R91CFI; Yeomans e Bremner (1988)";
+soildata_dataset;doi:10.60502/SoilData/RCYUYZ;Oxidação úmida - Yeomans-Bremner (1988) / Mebius em bloco;metadado_do_dataset:RCYUYZ;400;"doi:10.60502/SoilData/RCYUYZ; arquivo de metodo 11";
+soildata_dataset;doi:10.60502/SoilData/YOHSMZ;Combustão seca - analisador elementar;metadado_do_dataset:YOHSMZ;701;doi:10.60502/SoilData/YOHSMZ;
+wosis_brazil;wosis_latest_orgc;Não informado;metodo_analitico_nao_exposto_pelo_wfs;18171;https://docs.isric.org/globaldata/wosis/faq-wosis.html;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000093;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000094;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000095;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000096;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000097;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000098;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000099;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000100;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000101;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000102;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000103;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000104;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000105;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000106;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000107;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000108;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000109;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000110;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000111;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000112;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000113;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000114;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000115;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000116;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000117;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000118;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000119;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000120;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000121;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000122;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000123;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000124;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000125;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000402;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000403;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000404;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000405;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000406;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000428;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000429;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000430;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000431;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000432;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000433;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000434;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000435;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000436;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000437;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000438;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000439;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000440;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000441;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000442;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000443;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000444;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000445;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000446;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000447;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000448;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000449;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000450;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000451;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000658;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000659;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000660;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000661;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000662;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000663;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000664;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000665;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000666;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000667;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000668;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000669;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000670;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000677;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000678;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000679;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000680;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000693;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000694;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000695;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000696;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000697;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000698;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;2;dup-000699;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000791;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000792;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000793;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000794;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000795;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000796;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000797;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000798;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000799;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000800;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000801;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000802;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000803;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000804;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000805;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;3;dup-000906;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;3;dup-000907;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;3;dup-000908;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000949;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000950;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000951;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000952;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000953;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000954;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000955;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000956;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000957;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000958;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000959;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000960;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000961;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000962;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000963;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000964;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000965;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000966;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000967;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000968;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000969;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000970;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000971;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000972;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000973;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000974;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000975;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000976;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000977;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000978;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000979;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000980;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000981;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000989;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000990;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000991;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000992;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000993;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000994;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000995;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000996;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000997;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000998;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-000999;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-001000;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-001001;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-001002;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-001003;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-001004;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-001005;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-001006;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-001007;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black (1934), titulação;propagado_por_grupo_duplicado_inequivoco;1;dup-001008;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black modificado/Mebius (1960);propagado_por_grupo_duplicado_inequivoco;3;dup-000514;
+wosis_brazil;wosis_latest_orgc;Oxidação úmida - Walkley-Black modificado/Mebius (1960);propagado_por_grupo_duplicado_inequivoco;3;dup-000983;

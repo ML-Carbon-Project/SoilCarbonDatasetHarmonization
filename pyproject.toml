@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools==69.5.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "carbono-solo"
+version = "0.1.0"
+description = "Reproducible harmonization and analysis of Brazilian soil carbon datasets."
+requires-python = ">=3.10,<3.11"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,4 @@
+-r requirements.txt
+# Development dependencies for Carbono Solo.
+# Keep every dependency pinned with == so Windows and Linux installs resolve the same versions.
+

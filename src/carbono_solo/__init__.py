@@ -1,0 +1,1 @@
+"""Carbono Solo project package."""
