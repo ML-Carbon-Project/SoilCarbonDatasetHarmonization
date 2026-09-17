@@ -1,6 +1,6 @@
 # Soil Carbon Dataset Harmonization
 
-This repository contains the reproducible workflow and derived data used to harmonize legacy soil carbon observations across Brazil. The current release integrates six data sources into 64,591 provenance-traced soil-layer records and generates mass-preserving carbon-stock targets for standard depth intervals.
+This repository contains the reproducible workflow and derived data used to harmonize legacy soil carbon observations across Brazil. The current release integrates six data sources into 65,769 provenance-traced soil-layer records and generates mass-preserving carbon-stock targets for standard depth intervals.
 
 ## Contents
 
@@ -8,6 +8,10 @@ This repository contains the reproducible workflow and derived data used to harm
 - `data/raw/ibge`: IBGE boundaries required for territory and biome validation.
 - `src/carbono_solo`: collection, deduplication, harmonization, and analysis code.
 - `scripts`: executable workflow entry points.
+
+## Duplicate reconciliation
+
+Candidate overlaps are screened by coordinates, sampling period, depth, target type, and unit. A record is removed only when duplication is supported by an exact normalized scientific match, a shared source observation identifier without conflicting scientific fields, or documented HYBRAS/WoSIS republication. Discordant or unresolved overlaps remain active under a shared dependence-group identifier. The confirmed removals are stored in `soil_targets_duplicates_brasil.csv`, while `soil_targets_overlap_audit_brasil.csv` contains every candidate overlap, including ambiguous records retained for grouped validation and sensitivity analysis.
 
 ## Reproduction
 

@@ -44,7 +44,13 @@ def main() -> int:
     )
 
     print("Collection complete")
-    for key in ("inventory_records", "active_targets", "duplicate_targets"):
+    for key in (
+        "inventory_records",
+        "active_targets",
+        "duplicate_targets",
+        "overlap_targets",
+        "ambiguous_targets",
+    ):
         print(f"{key}: {summary[key]}")
     print(f"output_dir: {output_dir}")
     return 0

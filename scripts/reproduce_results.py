@@ -26,6 +26,7 @@ from carbono_solo.collector.depth_groups import group_stock_by_depth_csv
 BASELINE_FILES = (
     "soil_targets_brasil.csv",
     "soil_targets_duplicates_brasil.csv",
+    "soil_targets_overlap_audit_brasil.csv",
     "soil_targets_brasil_harmonized.csv",
     "soil_targets_brasil_harmonization_audit.csv",
 )

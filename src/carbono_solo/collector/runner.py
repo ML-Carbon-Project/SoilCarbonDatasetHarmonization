@@ -85,6 +85,14 @@ def run_collection(
         for target in deduplicated_targets
         if target.duplicate_status == "duplicate"
     ]
+    overlap_targets = [
+        target for target in deduplicated_targets if target.duplicate_group_id
+    ]
+    ambiguous_targets = [
+        target
+        for target in active_targets
+        if target.duplicate_resolution.startswith("retained_ambiguous_overlap:")
+    ]
 
     write_csv(
         output_dir / "dataset_inventory_brasil.csv",
@@ -101,9 +109,16 @@ def run_collection(
         TARGET_FIELDS,
         (record.to_row() for record in duplicate_targets),
     )
+    write_csv(
+        output_dir / "soil_targets_overlap_audit_brasil.csv",
+        TARGET_FIELDS,
+        (record.to_row() for record in overlap_targets),
+    )
 
     return {
         "inventory_records": len(inventory_records),
         "active_targets": len(active_targets),
         "duplicate_targets": len(duplicate_targets),
+        "overlap_targets": len(overlap_targets),
+        "ambiguous_targets": len(ambiguous_targets),
     }

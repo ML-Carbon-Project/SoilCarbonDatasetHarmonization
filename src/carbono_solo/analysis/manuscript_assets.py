@@ -286,6 +286,19 @@ def source_summary(
 def data_flow_summary(processed_dir: Path) -> dict[str, int | float]:
     active = _line_count(processed_dir / "soil_targets_brasil.csv")
     duplicates = _line_count(processed_dir / "soil_targets_duplicates_brasil.csv")
+    overlap_audit_path = processed_dir / "soil_targets_overlap_audit_brasil.csv"
+    overlap_audit = _read_csv(overlap_audit_path) if overlap_audit_path.exists() else []
+    ambiguous_overlap_rows = [
+        row
+        for row in overlap_audit
+        if row.get("duplicate_status") == "active"
+        and str(row.get("duplicate_resolution", "")).startswith(
+            "retained_ambiguous_overlap:"
+        )
+    ]
+    confirmed_duplicate_rows = [
+        row for row in overlap_audit if row.get("duplicate_status") == "duplicate"
+    ]
     harmonized = _line_count(processed_dir / "soil_targets_brasil_harmonized.csv")
     grouped = _line_count(processed_dir / "soil_target_Brasil_Stock_Group_Depth.csv")
     harmonization_audit = _read_csv(
@@ -299,6 +312,21 @@ def data_flow_summary(processed_dir: Path) -> dict[str, int | float]:
     return {
         "collected_target_rows": active + duplicates,
         "duplicates_removed": duplicates,
+        "confirmed_duplicate_groups": len(
+            {
+                row.get("duplicate_group_id")
+                for row in confirmed_duplicate_rows
+                if row.get("duplicate_group_id")
+            }
+        ),
+        "ambiguous_overlap_rows_retained": len(ambiguous_overlap_rows),
+        "ambiguous_overlap_groups": len(
+            {
+                row.get("duplicate_group_id")
+                for row in ambiguous_overlap_rows
+                if row.get("duplicate_group_id")
+            }
+        ),
         "active_after_deduplication": active,
         "organic_surface_density_rows_removed": organic_surface_density_rows,
         "territory_rows_removed": active - organic_surface_density_rows - harmonized,
@@ -619,12 +647,31 @@ def plot_workflow_provenance(
         ax.text(x + 0.13, y + 0.08, label, transform=ax.transAxes, ha="center", fontsize=9.5, color="#52616A")
     for left, right in ((0.28, 0.36), (0.62, 0.70)):
         ax.add_patch(FancyArrowPatch((left, 0.54), (right, 0.54), transform=ax.transAxes, arrowstyle="-|>", mutation_scale=14, color="#4F5B62"))
-    ax.text(0.32, 0.70, f"-{int(flow['duplicates_removed']):,}\npotentially redundant records", transform=ax.transAxes, ha="center", color="#9A5E11", fontsize=9)
+    ax.text(
+        0.32,
+        0.75,
+        f"-{int(flow['duplicates_removed']):,} confirmed duplicates\n"
+        f"({int(flow['confirmed_duplicate_groups']):,} groups)",
+        transform=ax.transAxes,
+        ha="center",
+        color="#9A5E11",
+        fontsize=8.5,
+    )
+    ax.text(
+        0.50,
+        0.29,
+        f"{int(flow['ambiguous_overlap_rows_retained']):,} records in "
+        f"{int(flow['ambiguous_overlap_groups']):,} ambiguous groups retained",
+        transform=ax.transAxes,
+        ha="center",
+        fontsize=8.5,
+        color="#52616A",
+    )
     ax.text(
         0.66,
         0.73,
         f"{int(flow['organic_surface_density_rows_removed']):,} organic-layer record exclusions\n"
-        f"{int(flow['territory_rows_removed']):,} geographic exclusions",
+        f"{int(flow['territory_rows_removed']):,} territorial/data validation removals",
         transform=ax.transAxes,
         ha="center",
         va="top",
