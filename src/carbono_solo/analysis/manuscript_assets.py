@@ -861,11 +861,19 @@ def plot_graphical_abstract(
         canvas.text(x, 0.251, label, fontsize=6.2, fontweight="bold", color="#263238", ha="center")
         canvas.text(x, 0.221, "\n".join(textwrap.wrap(detail, 18)), fontsize=5.5, color="#66757D", ha="center", va="top")
 
+    stock_total = sum(
+        int(row["reported_stock_rows"])
+        + int(row["observed_bulk_density_rows"])
+        + int(row["estimated_bulk_density_rows"])
+        for row in source_rows
+    )
+    estimated_bulk_density_rows = sum(int(row["estimated_bulk_density_rows"]) for row in source_rows)
+    estimated_bulk_density_pct = 100.0 * estimated_bulk_density_rows / stock_total if stock_total else 0.0
     evidence = [
         (f"{int(flow['harmonized_layers']):,}", "harmonized records", "#087F5B"),
         (f"{int(flow['exact_coordinate_pairs']):,}", "exact coordinate pairs", "#3568A8"),
         (f"{int(flow['rounded_location_keys']):,}", "rounded locations (5 d.p.)", "#B07A12"),
-        ("47.0%", "stocks use estimated bulk density", "#C44E52"),
+        (f"{estimated_bulk_density_pct:.1f}%", "stocks use estimated bulk density", "#C44E52"),
     ]
     for index, (value, label, color) in enumerate(evidence):
         y = 0.685 - index * 0.115
