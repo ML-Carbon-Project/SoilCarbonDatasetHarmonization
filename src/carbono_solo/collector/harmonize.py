@@ -80,9 +80,12 @@ STATE_BBOXES = [
 ]
 
 ORGANIC_MATTER_TO_CARBON_FRACTION = 0.58
-BULK_DENSITY_MIN_G_CM3 = 0.02
 BULK_DENSITY_MAX_G_CM3 = 2.2
+LOW_BULK_DENSITY_CROSS_FIELD_THRESHOLD_G_CM3 = 0.2
+CARBON_RICH_THRESHOLD_G_KG = 60.0
 CARBON_CONTENT_MAX_G_KG = 1000.0
+MIN_SAMPLE_YEAR = 1900
+MAX_SAMPLE_YEAR = 2026
 
 HARMONIZATION_AUDIT_FIELDS = [
     "UNIFIED_OBSERVATION_ID",
@@ -101,9 +104,9 @@ HARMONIZATION_AUDIT_FIELDS = [
     "EXCLUSION_REASON",
 ]
 
-ORGANIC_SURFACE_DENSITY_EXCLUSION = (
-    "organic_surface_layer_with_bulk_density_below_mineral_limit"
-)
+SURFACE_ORGANIC_LAYER_EXCLUSION = "surface_organic_layer_above_mineral_zero"
+# Backward-compatible import name used by earlier callers and tests.
+ORGANIC_SURFACE_DENSITY_EXCLUSION = SURFACE_ORGANIC_LAYER_EXCLUSION
 
 
 def harmonize_csv(
@@ -119,6 +122,7 @@ def harmonize_csv(
     return {
         "input_rows": len(rows),
         "output_rows": len(harmonized_rows),
+        "excluded_surface_organic_rows": len(audit_rows),
         "excluded_organic_surface_density_rows": len(audit_rows),
         "dynamic_depth_columns": len(
             [
@@ -163,16 +167,13 @@ def _exclusion_reason(
 ) -> str:
     depth_top = _to_float(harmonized_row.get("DEPTH_TOP_CM", ""))
     depth_bottom = _to_float(harmonized_row.get("DEPTH_BOTTOM_CM", ""))
-    raw_bulk_density = _to_float(_value(raw_row, "bulk_density_g_cm3"))
     if (
         depth_top is not None
         and depth_bottom is not None
         and depth_top < 0
         and depth_bottom <= 0
-        and raw_bulk_density is not None
-        and 0 < raw_bulk_density < BULK_DENSITY_MIN_G_CM3
     ):
-        return ORGANIC_SURFACE_DENSITY_EXCLUSION
+        return SURFACE_ORGANIC_LAYER_EXCLUSION
     return ""
 
 
@@ -215,8 +216,13 @@ def _harmonize_row(
     depth_bottom = _to_float(_value(row, "depth_bottom_cm"))
     depth_top, depth_bottom = _ordered_depths(depth_top, depth_bottom)
     layer_thickness = _layer_thickness(row, depth_top, depth_bottom)
+    sample_date, sample_year, temporal_status = _sample_period(row)
     carbon_content, carbon_measure_kind = _carbon_content(row)
-    bulk_density, bulk_density_source = _bulk_density(row)
+    bulk_density, bulk_density_source = _bulk_density(
+        row,
+        carbon_content=carbon_content,
+    )
+    observed_bulk_density_status = bulk_density_source
     coarse_fraction = _coarse_fraction(row)
     if bulk_density is None:
         bulk_density, bulk_density_source = _estimate_mean_value(
@@ -266,8 +272,8 @@ def _harmonize_row(
         "CRS": _value(row, "crs") or "EPSG:4326",
         "COUNTRY": country,
         "STATE": state,
-        "SAMPLE_DATE": _value(row, "sample_date"),
-        "SAMPLE_YEAR": _sample_year(row),
+        "SAMPLE_DATE": sample_date,
+        "SAMPLE_YEAR": sample_year,
         "DEPTH_TOP_CM": _format_number(depth_top),
         "DEPTH_BOTTOM_CM": _format_number(depth_bottom),
         "LAYER_THICKNESS_CM": _format_number(layer_thickness),
@@ -285,7 +291,11 @@ def _harmonize_row(
         "ORIGINAL_TARGET_KIND": _value(row, "target_kind"),
         "ORIGINAL_TARGET_VALUE": _value(row, "target_value"),
         "ORIGINAL_TARGET_UNIT": _value(row, "target_unit"),
-        "QUALITY_FLAG": _value(row, "quality_flag"),
+        "QUALITY_FLAG": _harmonization_quality_flag(
+            _value(row, "quality_flag"),
+            bulk_density_status=observed_bulk_density_status,
+            temporal_status=temporal_status,
+        ),
         "DUPLICATE_GROUP_ID": _value(row, "duplicate_group_id"),
         "DUPLICATE_STATUS": _value(row, "duplicate_status"),
         "DUPLICATE_RESOLUTION": _value(row, "duplicate_resolution"),
@@ -372,12 +382,30 @@ def _state_from_coordinate(latitude: float, longitude: float) -> tuple[str, str]
     return min(matches, key=distance_to_center)[0], "coordinate_bbox_ambiguous"
 
 
-def _sample_year(row: Mapping[str, object]) -> str:
-    year = normalize_year(_value(row, "sample_year"))
-    if year:
-        return year
-    match = re.search(r"(19|20)\d{2}", _value(row, "sample_date"))
-    return match.group(0) if match else ""
+def _sample_period(row: Mapping[str, object]) -> tuple[str, str, str]:
+    raw_date = _value(row, "sample_date")
+    raw_year_text = _value(row, "sample_year")
+    raw_year_value = _to_float(raw_year_text)
+    date_prefix = re.match(r"^(\d{4})[-/]", raw_date)
+    date_year_value = int(date_prefix.group(1)) if date_prefix else None
+    explicit_years = [
+        year
+        for year in (
+            int(raw_year_value)
+            if raw_year_value is not None and raw_year_value.is_integer()
+            else None,
+            date_year_value,
+        )
+        if year is not None
+    ]
+    if any(year < MIN_SAMPLE_YEAR or year > MAX_SAMPLE_YEAR for year in explicit_years):
+        return "", "", "out_of_range_invalid"
+
+    raw_year = normalize_year(raw_year_text)
+    date_match = re.search(r"(19|20)\d{2}", raw_date)
+    date_year = date_match.group(0) if date_match else ""
+    candidate_year = raw_year or date_year
+    return raw_date, candidate_year, "valid" if candidate_year else "missing"
 
 
 def _layer_thickness(
@@ -424,10 +452,13 @@ def _mean_reference(rows: list[Mapping[str, object]]) -> dict[str, dict[str, flo
         carbon_content, _carbon_measure_kind = _carbon_content(row)
         carbon_bin = _carbon_bin(carbon_content)
 
-        bulk_density, _bulk_density_source = _bulk_density(row)
+        bulk_density, _bulk_density_source = _bulk_density(
+            row,
+            carbon_content=carbon_content,
+        )
         if (
             bulk_density is not None
-            and BULK_DENSITY_MIN_G_CM3 <= bulk_density <= BULK_DENSITY_MAX_G_CM3
+            and 0 < bulk_density <= BULK_DENSITY_MAX_G_CM3
         ):
             _append_reference_value(
                 values["bulk_density"],
@@ -487,7 +518,12 @@ def _estimate_mean_value(
     depth_bucket = _depth_bucket(depth_top, depth_bottom)
     carbon_bin = _carbon_bin(carbon_content)
     candidates = []
-    if kind == "bulk_density" and carbon_content is not None and carbon_content >= 60 and carbon_bin:
+    if (
+        kind == "bulk_density"
+        and carbon_content is not None
+        and carbon_content >= CARBON_RICH_THRESHOLD_G_KG
+        and carbon_bin
+    ):
         candidates.append((f"carbon_bin:{carbon_bin}", "carbon_bin"))
     if state and depth_bucket:
         candidates.append((f"state_depth:{state}:{depth_bucket}", "state_depth"))
@@ -561,18 +597,58 @@ def _coarse_fraction(row: Mapping[str, object]) -> float | None:
     return raw_value
 
 
-def _bulk_density(row: Mapping[str, object]) -> tuple[float | None, str]:
+def _bulk_density(
+    row: Mapping[str, object],
+    *,
+    carbon_content: float | None = None,
+) -> tuple[float | None, str]:
     raw_value = _to_float(_value(row, "bulk_density_g_cm3"))
     if raw_value is None or raw_value <= 0:
         return None, "missing"
     if raw_value > 10:
         scaled_value = raw_value / 100
-        if BULK_DENSITY_MIN_G_CM3 <= scaled_value <= BULK_DENSITY_MAX_G_CM3:
-            return scaled_value, "observed_scaled"
-        return None, "invalid"
-    if not BULK_DENSITY_MIN_G_CM3 <= raw_value <= BULK_DENSITY_MAX_G_CM3:
-        return None, "invalid"
+        if scaled_value > BULK_DENSITY_MAX_G_CM3:
+            return None, "invalid_range"
+        if _low_density_conflicts_with_carbon(scaled_value, carbon_content):
+            return None, "invalid_cross_field"
+        return scaled_value, "observed_scaled"
+    if raw_value > BULK_DENSITY_MAX_G_CM3:
+        return None, "invalid_range"
+    if _low_density_conflicts_with_carbon(raw_value, carbon_content):
+        return None, "invalid_cross_field"
     return raw_value, "observed"
+
+
+def _low_density_conflicts_with_carbon(
+    bulk_density: float,
+    carbon_content: float | None,
+) -> bool:
+    if bulk_density >= LOW_BULK_DENSITY_CROSS_FIELD_THRESHOLD_G_CM3:
+        return False
+    return carbon_content is None or carbon_content < CARBON_RICH_THRESHOLD_G_KG
+
+
+def _harmonization_quality_flag(
+    existing: str,
+    *,
+    bulk_density_status: str,
+    temporal_status: str,
+) -> str:
+    flags = []
+    density_flag = {
+        "invalid_cross_field": "bulk_density_cross_field_invalid_imputed",
+        "invalid_range": "bulk_density_range_invalid_imputed",
+    }.get(bulk_density_status, "")
+    if density_flag:
+        flags.append(density_flag)
+    if temporal_status == "out_of_range_invalid":
+        flags.append("sample_date_out_of_range_invalid")
+
+    existing_flags = [part for part in existing.split("|") if part]
+    for flag in flags:
+        if flag not in existing_flags:
+            existing_flags.append(flag)
+    return "|".join(existing_flags)
 
 
 def _stock_values(

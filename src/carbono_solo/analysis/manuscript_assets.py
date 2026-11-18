@@ -304,9 +304,9 @@ def data_flow_summary(processed_dir: Path) -> dict[str, int | float]:
     harmonization_audit = _read_csv(
         processed_dir / "soil_targets_brasil_harmonization_audit.csv"
     )
-    organic_surface_density_rows = sum(
+    surface_organic_rows = sum(
         row.get("EXCLUSION_REASON")
-        == "organic_surface_layer_with_bulk_density_below_mineral_limit"
+        == "surface_organic_layer_above_mineral_zero"
         for row in harmonization_audit
     )
     return {
@@ -328,8 +328,8 @@ def data_flow_summary(processed_dir: Path) -> dict[str, int | float]:
             }
         ),
         "active_after_deduplication": active,
-        "organic_surface_density_rows_removed": organic_surface_density_rows,
-        "territory_rows_removed": active - organic_surface_density_rows - harmonized,
+        "surface_organic_rows_removed": surface_organic_rows,
+        "territory_rows_removed": active - surface_organic_rows - harmonized,
         "harmonized_layers": harmonized,
         "grouped_point_rows": grouped,
     }
@@ -618,80 +618,432 @@ def plot_workflow_provenance(
     overlaps: Sequence[dict[str, object]],
     output_path: Path,
 ) -> None:
-    fig, axes = plt.subplots(2, 2, figsize=(16, 11.5))
-    ax = axes[0, 0]
+    """Plot the concise source-to-question workflow used in the Methods section."""
+    del flow, source_rows, overlaps
+    # Match the physical size used in the manuscript so embedded text remains legible.
+    fig, ax = plt.subplots(figsize=(8.5, 5.3))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
     ax.axis("off")
-    boxes = [
-        (
-            0.02,
-            0.40,
-            "Target records\nbefore reconciliation",
-            int(flow["collected_target_rows"]),
-        ),
-        (0.36, 0.40, "Retained after\nreconciliation", int(flow["active_after_deduplication"])),
-        (0.70, 0.40, "Harmonized records", int(flow["harmonized_layers"])),
-    ]
-    for x, y, label, value in boxes:
+
+    def add_box(
+        x: float,
+        y: float,
+        width: float,
+        height: float,
+        title: str,
+        lines: Sequence[str],
+        facecolor: str,
+        edgecolor: str,
+        *,
+        title_size: float = 9.2,
+        body_size: float = 8.4,
+    ) -> None:
         ax.add_patch(
-            Rectangle(
+            FancyBboxPatch(
                 (x, y),
-                0.26,
-                0.28,
-                transform=ax.transAxes,
-                facecolor="#F4F7F7",
-                edgecolor="#6C7A82",
-                linewidth=1.2,
+                width,
+                height,
+                boxstyle="round,pad=0.008,rounding_size=0.012",
+                facecolor=facecolor,
+                edgecolor=edgecolor,
+                linewidth=1.7,
             )
         )
-        ax.text(x + 0.13, y + 0.19, f"{value:,}", transform=ax.transAxes, ha="center", fontsize=18, fontweight="bold", color="#172126")
-        ax.text(x + 0.13, y + 0.08, label, transform=ax.transAxes, ha="center", fontsize=9.5, color="#52616A")
-    for left, right in ((0.28, 0.36), (0.62, 0.70)):
-        ax.add_patch(FancyArrowPatch((left, 0.54), (right, 0.54), transform=ax.transAxes, arrowstyle="-|>", mutation_scale=14, color="#4F5B62"))
-    ax.text(
-        0.32,
-        0.75,
-        f"-{int(flow['duplicates_removed']):,} confirmed duplicates\n"
-        f"({int(flow['confirmed_duplicate_groups']):,} groups)",
-        transform=ax.transAxes,
-        ha="center",
-        color="#9A5E11",
-        fontsize=8.5,
-    )
-    ax.text(
-        0.50,
-        0.29,
-        f"{int(flow['ambiguous_overlap_rows_retained']):,} records in "
-        f"{int(flow['ambiguous_overlap_groups']):,} ambiguous groups retained",
-        transform=ax.transAxes,
-        ha="center",
-        fontsize=8.5,
-        color="#52616A",
-    )
-    ax.text(
-        0.66,
-        0.73,
-        f"{int(flow['organic_surface_density_rows_removed']):,} organic-layer record exclusions\n"
-        f"{int(flow['territory_rows_removed']):,} territorial/data validation removals",
-        transform=ax.transAxes,
-        ha="center",
-        va="top",
-        color="#9A5E11",
-        fontsize=8.5,
-    )
-    ax.text(
-        0.50,
-        0.16,
-        f"{int(flow['exact_coordinate_pairs']):,} exact coordinate pairs | "
-        f"{int(flow['rounded_location_keys']):,} rounded locations (5 d.p.)",
-        transform=ax.transAxes,
-        ha="center",
-        fontsize=10,
-        fontweight="bold",
-        color="#263238",
-    )
-    ax.set_title("a) Data flow and spatial indexing", loc="left", fontweight="bold")
+        ax.text(
+            x + width / 2,
+            y + height - 0.055,
+            title,
+            ha="center",
+            va="top",
+            fontsize=title_size,
+            fontweight="bold",
+            color="#17313B",
+            linespacing=1.08,
+        )
+        ax.text(
+            x + width / 2,
+            y + height - 0.135,
+            "\n".join(lines),
+            ha="center",
+            va="top",
+            fontsize=body_size,
+            color="#34464E",
+            linespacing=1.32,
+        )
 
-    ax = axes[0, 1]
+    def arrow(start: tuple[float, float], end: tuple[float, float]) -> None:
+        ax.add_patch(
+            FancyArrowPatch(
+                start,
+                end,
+                arrowstyle="-|>",
+                mutation_scale=16,
+                linewidth=1.5,
+                color="#64757D",
+                connectionstyle="arc3,rad=0",
+            )
+        )
+
+    source_x, source_y, source_w, source_h = 0.025, 0.725, 0.95, 0.185
+    add_box(
+        source_x,
+        source_y,
+        source_w,
+        source_h,
+        "PUBLIC LEGACY SOURCES",
+        [
+            "MapBiomas Soil C3 | WoSIS | BD Solos / Embrapa | SoilData | ISRaD | HYBRAS",
+        ],
+        "#E7EEF5",
+        "#3568A8",
+        title_size=10.2,
+        body_size=9.0,
+    )
+
+    main_y = 0.40
+    main_h = 0.23
+    process_xs = [0.025, 0.265, 0.505, 0.745]
+    process_w = 0.21
+    stages = [
+        (
+            "1  ACQUISITION\nAND PROVENANCE",
+            ["versions, DOIs, and manifest", "source and observation IDs", "method metadata retained"],
+            "#E9F2F8",
+            "#3568A8",
+        ),
+        (
+            "2  HARMONIZATION\nAND RECONCILIATION",
+            ["coordinates, time, and depth", "units and fingerprints", "duplicates reconciled"],
+            "#EAF4F2",
+            "#2A7F73",
+        ),
+        (
+            "3  VALIDATION\nAND TARGETS",
+            ["Brazilian land and biomes", "concentration and stock basis", "quality and exclusion flags"],
+            "#EEF3E5",
+            "#6F8A2D",
+        ),
+        (
+            "4  AUDITED\nLAYER DATABASE",
+            ["observed-layer support", "retained provenance", "explicit uncertainty classes"],
+            "#F7E9E9",
+            "#B44B4B",
+        ),
+    ]
+    for x, stage in zip(process_xs, stages):
+        add_box(x, main_y, process_w, main_h, *stage, title_size=9.0, body_size=8.6)
+    arrow(
+        (process_xs[0] + process_w / 2, source_y),
+        (process_xs[0] + process_w / 2, main_y + main_h + 0.006),
+    )
+    for left_x, right_x in zip(process_xs[:-1], process_xs[1:]):
+        arrow((left_x + process_w, main_y + main_h / 2), (right_x - 0.006, main_y + main_h / 2))
+
+    hub_x = process_xs[-1] + process_w / 2
+    hub_y = 0.345
+    arrow((hub_x, main_y), (hub_x, hub_y))
+    ax.plot([0.12, 0.88], [hub_y, hub_y], color="#64757D", linewidth=1.5)
+
+    question_y = 0.05
+    question_h = 0.24
+    question_w = 0.205
+    question_xs = [0.025, 0.275, 0.525, 0.775]
+    questions = [
+        (
+            "EFFECTIVE SUPPORT",
+            ["redundancy and reuse", "records versus locations", "dependence groups"],
+            "#EDF3F7",
+            "#5C7C91",
+        ),
+        (
+            "MATCHED COMPARABILITY",
+            ["same coordinates and depths", "same-year sensitivity", "paired agreement"],
+            "#E5F2F2",
+            "#008C95",
+        ),
+        (
+            "FITNESS FOR USE",
+            ["territorial sampling intensity", "metadata completeness", "target provenance"],
+            "#EEF3E5",
+            "#6F8A2D",
+        ),
+        (
+            "STANDARD-DEPTH TARGETS",
+            ["complete observed coverage", "mass-preserving allocation", "no extrapolation"],
+            "#F3E7F4",
+            "#7A4A82",
+        ),
+    ]
+    for x, question in zip(question_xs, questions):
+        add_box(x, question_y, question_w, question_h, *question, title_size=8.6, body_size=7.8)
+        center_x = x + question_w / 2
+        arrow((center_x, hub_y), (center_x, question_y + question_h + 0.006))
+
+    fig.suptitle(
+        "From Brazilian legacy sources to auditable soil-carbon evidence",
+        x=0.025,
+        y=0.975,
+        ha="left",
+        fontsize=16,
+        fontweight="bold",
+        color="#17313B",
+    )
+    fig.tight_layout(rect=(0.01, 0.015, 0.99, 0.94))
+    _save(fig, output_path)
+
+
+def plot_workflow_audit_detail(
+    flow: dict[str, int | float],
+    source_rows: Sequence[dict[str, object]],
+    overlaps: Sequence[dict[str, object]],
+    output_path: Path,
+) -> None:
+    del source_rows, overlaps
+    fig, ax = plt.subplots(figsize=(18, 10.5))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+
+    def add_box(
+        x: float,
+        y: float,
+        width: float,
+        height: float,
+        title: str,
+        lines: Sequence[str],
+        facecolor: str,
+        edgecolor: str,
+        title_color: str = "#17313B",
+    ) -> None:
+        ax.add_patch(
+            FancyBboxPatch(
+                (x, y),
+                width,
+                height,
+                boxstyle="round,pad=0.008,rounding_size=0.008",
+                facecolor=facecolor,
+                edgecolor=edgecolor,
+                linewidth=1.4,
+            )
+        )
+        title_lines = title.count("\n") + 1
+        ax.text(
+            x + 0.012,
+            y + height - 0.032,
+            title,
+            ha="left",
+            va="top",
+            fontsize=7.1,
+            fontweight="bold",
+            color=title_color,
+            linespacing=1.12,
+        )
+        ax.text(
+            x + width / 2,
+            y + height - 0.071 - 0.022 * (title_lines - 1),
+            "\n".join(lines),
+            ha="center",
+            va="top",
+            fontsize=7.1,
+            color="#34464E",
+            linespacing=1.35,
+        )
+
+    def arrow(start: tuple[float, float], end: tuple[float, float]) -> None:
+        ax.add_patch(
+            FancyArrowPatch(
+                start,
+                end,
+                arrowstyle="-|>",
+                mutation_scale=14,
+                linewidth=1.25,
+                color="#64757D",
+                connectionstyle="arc3,rad=0",
+            )
+        )
+
+    top_y = 0.67
+    box_w = 0.142
+    box_h = 0.215
+    xs = [0.025, 0.188, 0.351, 0.514, 0.677, 0.840]
+    stages = [
+        (
+            "1  SOURCE\nACQUISITION",
+            [
+                "6 source groups; 12 datasets",
+                f"{int(flow['collected_target_rows']):,} target records",
+                "raw identifiers and method metadata retained",
+            ],
+            "#E9F2F8",
+            "#3568A8",
+        ),
+        (
+            "2  SEMANTIC\nSTANDARDIZATION",
+            [
+                "coordinates and reference systems",
+                "sampling date or year and depth limits",
+                "carbon concentration, stock, and units",
+            ],
+            "#EAF4F2",
+            "#2A7F73",
+        ),
+        (
+            "3  TEMPORAL IDENTITY\nAND RECONCILIATION",
+            [
+                "scientific fingerprints and source IDs",
+                f"{int(flow['duplicates_removed']):,} confirmed duplicates removed",
+                f"{int(flow['ambiguous_overlap_rows_retained']):,} ambiguous records retained",
+            ],
+            "#F8F1E4",
+            "#B07A12",
+        ),
+        (
+            "4  GEOGRAPHIC\nVALIDATION",
+            [
+                "coordinate orientation and SIRGAS 2000",
+                "Brazilian land, state, and biome polygons",
+                (
+                    f"{int(flow['surface_organic_rows_removed']):,} surface-organic + "
+                    f"{int(flow['territory_rows_removed']):,} territorial/data exclusions"
+                ),
+            ],
+            "#EEF3E5",
+            "#6F8A2D",
+        ),
+        (
+            "5  TARGET DERIVATION\nAND PROVENANCE",
+            [
+                "reported or inverse concentration",
+                "reported or calculated stock",
+                "observed or estimated bulk density flagged",
+            ],
+            "#F7E9E9",
+            "#B44B4B",
+        ),
+        (
+            "6  HARMONIZED\nOBSERVED LAYERS",
+            [
+                f"{int(flow['harmonized_layers']):,} layer records",
+                f"{int(flow['exact_coordinate_pairs']):,} exact coordinate pairs",
+                f"{int(flow['rounded_location_keys']):,} rounded locations",
+            ],
+            "#E7EEF5",
+            "#244A6A",
+        ),
+    ]
+    for x, stage in zip(xs, stages):
+        add_box(x, top_y, box_w, box_h, *stage)
+    for left_x, right_x in zip(xs[:-1], xs[1:]):
+        arrow((left_x + box_w, top_y + box_h / 2), (right_x - 0.004, top_y + box_h / 2))
+
+    audit_y = 0.525
+    audit_h = 0.105
+    audits = [
+        (xs[0], "Acquisition manifest\nchecksums and source IDs", "#DCEAF4", "#3568A8"),
+        (xs[1], "Schema and unit\nvalidation audit", "#DCEDE9", "#2A7F73"),
+        (xs[2], f"{int(flow['confirmed_duplicate_groups']):,} duplicate groups\nand overlap audit", "#F3E6CC", "#B07A12"),
+        (xs[3], "Exclusion table and\nspatial annotations", "#E4ECD4", "#6F8A2D"),
+        (xs[4], "Formula inputs and\nstock-basis flags", "#F1DADA", "#B44B4B"),
+        (xs[5], "Layer-level product\nwith retained provenance", "#D7E3EE", "#244A6A"),
+    ]
+    for x, text_value, face, edge in audits:
+        add_box(x, audit_y, box_w, audit_h, "AUDIT OUTPUT", text_value.split("\n"), face, edge)
+        arrow((x + box_w / 2, top_y), (x + box_w / 2, audit_y + audit_h + 0.004))
+
+    branch_y = 0.235
+    branch_h = 0.175
+    branch_w = 0.174
+    branch_xs = [0.025, 0.218, 0.411, 0.604, 0.797]
+    branches = [
+        (
+            "A  COMPOSITION\nAND DEPENDENCE",
+            ["source contributions", "shared-location network", "record and location counts"],
+            "#EDF3F7",
+            "#5C7C91",
+        ),
+        (
+            "B  MATCHED\nSUPPORT",
+            ["same coordinate and layer limits", "median difference per coordinate", "same-year sensitivity"],
+            "#E5F2F2",
+            "#008C95",
+        ),
+        (
+            "C  TERRITORIAL\nSUPPORT",
+            ["biome and state assignment", "area-relative sampling intensity", "no claim of probability sampling"],
+            "#EEF3E5",
+            "#6F8A2D",
+        ),
+        (
+            "D  METHOD AND\nSTOCK BASIS",
+            ["identified laboratory methods", "descriptive method contrasts", "bulk-density provenance"],
+            "#F8F1E4",
+            "#B07A12",
+        ),
+        (
+            "E  PROFILE AND\nDEPTH SUPPORT",
+            ["profile grouping and overlap resolution", "spline or proportional allocation", "full coverage and mass audit"],
+            "#F3E7F4",
+            "#7A4A82",
+        ),
+    ]
+    hub_x, hub_y, hub_w, hub_h = 0.382, 0.430, 0.236, 0.065
+    add_box(
+        hub_x,
+        hub_y,
+        hub_w,
+        hub_h,
+        "ANALYTICAL BRANCH POINT",
+        [],
+        "#F4F6F7",
+        "#64757D",
+    )
+    arrow((xs[-1] + box_w / 2, audit_y), (hub_x + hub_w / 2, hub_y + hub_h + 0.004))
+    for x, branch in zip(branch_xs, branches):
+        add_box(x, branch_y, branch_w, branch_h, *branch)
+        arrow((hub_x + hub_w / 2, hub_y), (x + branch_w / 2, branch_y + branch_h + 0.004))
+
+    output_y = 0.055
+    output_h = 0.105
+    outputs = [
+        "effective evidence\nand redundancy diagnostics",
+        "paired agreement\nand effect estimates",
+        "maps and sampling\nintensity indices",
+        "method metadata and\nstock-uncertainty diagnostics",
+        f"{int(flow['standard_depth_targets']):,} standard-depth targets\nwithout extrapolation",
+    ]
+    for x, label, branch in zip(branch_xs, outputs, branches):
+        edge = branch[3]
+        add_box(x, output_y, branch_w, output_h, "RESULT", label.split("\n"), "#FAFBFB", edge)
+        arrow((x + branch_w / 2, branch_y), (x + branch_w / 2, output_y + output_h + 0.004))
+
+    fig.suptitle(
+        "Technical workflow and dependencies from source acquisition to analytical outputs",
+        x=0.025,
+        y=0.985,
+        ha="left",
+        fontsize=17,
+        fontweight="bold",
+        color="#17313B",
+    )
+    fig.text(
+        0.025,
+        0.025,
+        "Audit outputs remain separate from analytical products. Rounded coordinates support spatial summaries, whereas paired inference requires exact coordinate and observed-layer boundaries.",
+        fontsize=8.5,
+        color="#59666F",
+    )
+    fig.tight_layout(rect=(0.01, 0.04, 0.99, 0.955))
+    _save(fig, output_path)
+
+
+def plot_provenance_structure(
+    source_rows: Sequence[dict[str, object]],
+    overlaps: Sequence[dict[str, object]],
+    output_path: Path,
+) -> None:
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6.4))
+    ax = axes[0]
     labels = [str(row["source_label"]) for row in source_rows]
     layers = np.asarray([int(row["layers"]) for row in source_rows])
     points = np.asarray([int(row["unique_points"]) for row in source_rows])
@@ -702,11 +1054,11 @@ def plot_workflow_provenance(
     ax.set_yscale("log")
     ax.set_xticks(positions, labels, rotation=28, ha="right")
     ax.set_ylabel("Count, logarithmic scale")
-    ax.set_title("b) Contribution of each source", loc="left", fontweight="bold")
+    ax.set_title("a) Contribution of each source", loc="left", fontweight="bold")
     ax.legend(ncol=2)
     ax.grid(axis="x", visible=False)
 
-    ax = axes[1, 0]
+    ax = axes[1]
     ax.set_aspect("equal")
     ax.axis("off")
     angles = np.linspace(math.pi / 2, math.pi / 2 + 2 * math.pi, len(SOURCE_ORDER), endpoint=False)
@@ -731,9 +1083,9 @@ def plot_workflow_provenance(
         ax.text(x, y, SOURCE_NODE_LABELS[source], ha="center", va="center", color="white", fontsize=7.0, fontweight="bold", zorder=4)
     ax.set_xlim(-1.6, 1.6)
     ax.set_ylim(-1.4, 1.4)
-    ax.set_title("c) Shared rounded locations between sources", loc="left", fontweight="bold")
+    ax.set_title("b) Shared rounded locations between sources", loc="left", fontweight="bold")
 
-    ax = axes[1, 1]
+    ax = axes[2]
     categories = ["Reported stock", "Observed bulk density", "Estimated bulk density"]
     category_colors = ["#4C6A64", "#3568A8", "#C58B2A"]
     left = np.zeros(len(source_rows))
@@ -752,13 +1104,13 @@ def plot_workflow_provenance(
     ax.invert_yaxis()
     ax.set_xlim(0, 100)
     ax.set_xlabel("Share of harmonized records (%)")
-    ax.set_title("d) Basis used to obtain carbon stock", loc="left", fontweight="bold")
-    ax.legend(loc="lower center", bbox_to_anchor=(0.5, -0.27), ncol=3, fontsize=8)
+    ax.set_title("c) Basis used to obtain carbon stock", loc="left", fontweight="bold")
+    ax.legend(loc="lower center", bbox_to_anchor=(0.5, -0.30), ncol=2, fontsize=8)
     ax.grid(axis="y", visible=False)
 
-    fig.suptitle("Integration, redundancy, and provenance of the harmonized dataset", x=0.04, y=0.99, ha="left", fontsize=17, fontweight="bold")
-    fig.text(0.04, 0.012, "Edges in panel c denote shared rounded locations and do not prove identical or independent sampling events. Stock derived with estimated bulk density carries additional model uncertainty.", fontsize=8.5, color="#59666F")
-    fig.tight_layout(rect=(0.02, 0.05, 0.99, 0.95))
+    fig.suptitle("Source composition, cross-source overlap, and stock provenance", x=0.035, y=0.99, ha="left", fontsize=17, fontweight="bold")
+    fig.text(0.035, 0.012, "Edges in panel b denote shared rounded locations and do not prove identical sampling events. Stock derived with estimated bulk density carries additional uncertainty.", fontsize=8.5, color="#59666F")
+    fig.tight_layout(rect=(0.02, 0.06, 0.99, 0.94))
     _save(fig, output_path)
 
 
@@ -1764,6 +2116,7 @@ def build_manuscript_assets(
     depth_summary, depth_bands, depth_sources, depth_changes = (
         depth_harmonization_statistics(processed_dir)
     )
+    flow["standard_depth_targets"] = int(depth_summary["assigned_targets"])
 
     _write_csv(tables_dir / "source_summary.csv", sources)
     _write_csv(tables_dir / "biome_representativeness.csv", biome_rows)
@@ -1776,6 +2129,17 @@ def build_manuscript_assets(
     _write_csv(tables_dir / "depth_harmonization_by_source.csv", depth_sources)
 
     plot_workflow_provenance(flow, sources, overlaps, figures_dir / "figure_1_workflow_provenance.png")
+    plot_workflow_audit_detail(
+        flow,
+        sources,
+        overlaps,
+        figures_dir / "figure_s6_workflow_audit_detail.png",
+    )
+    plot_provenance_structure(
+        sources,
+        overlaps,
+        figures_dir / "figure_s5_provenance_structure.png",
+    )
     plot_spatial_representativeness(points, geojson, biome_rows, state_rows, figures_dir / "figure_2_spatial_representativeness.png")
     plot_consolidated_spatial_support(
         points,

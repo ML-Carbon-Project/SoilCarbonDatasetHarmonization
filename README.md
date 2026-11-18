@@ -1,6 +1,6 @@
 # Soil Carbon Dataset Harmonization
 
-This repository contains the reproducible workflow and derived data used to harmonize legacy soil carbon observations across Brazil. The current release integrates six data sources into 65,769 provenance-traced soil-layer records and generates mass-preserving carbon-stock targets for standard depth intervals.
+This repository contains the reproducible workflow and derived data used to harmonize legacy soil carbon observations across Brazil. The current release integrates six data sources into 65,744 provenance-traced soil-layer records and generates mass-preserving carbon-stock targets for standard depth intervals.
 
 ## Contents
 
@@ -27,3 +27,5 @@ Generated outputs are written to `results/reproduction`. CSV files use a semicol
 ## Data terms
 
 Redistributable derived data are versioned in this repository. Raw third-party files are not included when redistribution terms are source-specific or unspecified. The dataset inventory records source URLs, identifiers, and available license information; original source conditions remain applicable.
+
+The MIT license in this repository applies to the software. It does not replace source-specific data licenses. In particular, Embrapa distributes the official BD Solos profile release through Redape under CC BY-NC 4.0 (DOI: [10.48432/DDBVFO](https://doi.org/10.48432/DDBVFO)); records derived from BD Solos remain subject to those terms.
